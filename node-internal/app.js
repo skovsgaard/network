@@ -2,16 +2,26 @@ var http = require('http');
 var JSONStream = require('jsonstream2');
 var fs = require('fs');
 
-http.createServer(function(clientReq, clientRes) {
-  //var dataUrl = 'http://api.bitcoincharts.com/v1/weighted_prices.json';
-  //http.get(dataUrl, function(apiResponse) {
-  //  apiResponse
-  //  //.pipe(JSONStream.parse(['DKK']))
-  //  .pipe(clientRes);
-  //});
+var dataUrl = 'http://api.bitcoincharts.com/v1/weighted_prices.json';
+var updateInterval = 8.64 * 10000000
+
+setInterval(sourceData, updateInterval);
+console.log('Starting 24h countdown to next data-update.');
+
+http.createServer(serverLogic).listen(5000).on('clientError', console.error); 
+http.createServer(serverLogic).listen(5001).on('clientError', console.error);
+console.log('Running the Node internal on ports 5000 and 5001.');
+
+function serverLogic(req, res) {
+  res.writeHead(200, {'Content-Type': 'application/json'});
 
   fs.createReadStream('weighted_prices.json')
-  .pipe(clientRes);
-}).listen(5000);
+  .pipe(res);
+}
 
-console.log('Running the Node internal on port 5000');
+function sourceData() {
+  http.get(dataUrl, function(apiResponse) {
+    apiResponse.pipe(clientRes);
+  });
+}
+

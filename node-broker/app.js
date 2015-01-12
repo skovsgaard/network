@@ -1,4 +1,5 @@
 var http = require('http');
+var tick = 0;
 
 for (var i = 0; i <= 3; i++){
   http.createServer(serverLogic).listen(3000 + i);
@@ -6,7 +7,13 @@ for (var i = 0; i <= 3; i++){
 }
 
 function serverLogic(clientReq, clientRes) {
-  http.get({port: 5000}, function(internalResponse) {
+  if (tick % 2 == 0) {
+    var opts = {port: 5000};
+  } else {
+    var opts = {port: 5001}
+  }
+
+  http.get(opts, function(internalResponse) {
     internalResponse
     .pipe(clientRes);
   });

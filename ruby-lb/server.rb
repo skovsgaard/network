@@ -17,10 +17,10 @@ def divisible_by(tick)
   end
 end
 
-def balance_req(tick)
+def balance_req(tick, args)
   tick_order = divisible_by tick
 
-  Net::HTTP.get URI "http://localhost:300#{tick_order}"
+  Net::HTTP.get URI "http://localhost:300#{tick_order}?#{args[0]}=#{args[1]}"
 end
 
 def most_redirected(redirects)
@@ -31,20 +31,30 @@ end
 loop do
   socket = server.accept
   req = socket.gets
-  puts req
+  params = req.chomp.split(" ")[1][2..-1]
 
-  res = balance_req tick 
+  if params and params.include? "="
+    key = params.split("=")[0]
+    val = params.split("=")[1]
+
+    puts "#{key}: #{val}"
+
+    res = balance_req tick, [key, val]
+  else
+    puts "No args"
+    res = balance_req tick, ["currency", "USD"]
+  end
+
   tick += 1
 
   redirects.push divisible_by tick
 
-  socket.print  "HTTP/1.1 200 OK\r\n" +
-                "Content-Type: text/plain\r\n" +
-                "Content-Length: #{res.bytesize}\r\n" +
-                "Connection: close\r\n"
+  socket.puts ["HTTP/1.1 200 OK",
+               "Content-Type: text/plain",
+               "Content-Length: #{res.bytesize}",
+               "Connection: close"].join("\r\n")
 
-  socket.print "\r\n"
-  socket.print res
+  socket.puts res
 
   puts "Current number is #{divisible_by tick}."
   most_redirected redirects
