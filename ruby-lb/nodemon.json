@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "ignore": ["Makefile"],
+  "execMap":{
+    "rb": "ruby"
+  }
+}

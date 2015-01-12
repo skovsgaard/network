@@ -1,0 +1,19 @@
+{
+  "name": "node-broker",
+  "version": "0.0.1",
+  "description": "Brokers requests between internal resource and load balancer in the DMZ.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "make test"
+  },
+  "author": "Jonas Skovsgaard Christensen",
+  "license": "MIT",
+  "dependencies": {
+    "concat-stream": "^1.4.7",
+    "json-stream": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.2.1"
+  }
+}

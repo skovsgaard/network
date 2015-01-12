@@ -1,0 +1,15 @@
+{
+  "name": "node-internal",
+  "version": "0.0.1",
+  "description": "The resource handler for the system.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "make test"
+  },
+  "author": "Jonas Skovsgaard Christensen",
+  "license": "MIT",
+  "dependencies": {
+    "jsonstream2": "^1.1.0"
+  }
+}
