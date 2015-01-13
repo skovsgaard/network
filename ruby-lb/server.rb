@@ -19,6 +19,7 @@ end
 
 def balance_req(tick, args)
   tick_order = divisible_by tick
+  args[1] = args[1].upcase
 
   Net::HTTP.get URI "http://localhost:300#{tick_order}?#{args[0]}=#{args[1]}"
 end
@@ -37,11 +38,13 @@ loop do
     key = params.split("=")[0]
     val = params.split("=")[1]
 
-    puts "#{key}: #{val}"
+    puts req
+    #puts "#{key}: #{val}"
 
     res = balance_req tick, [key, val]
   else
-    puts "No args"
+    puts req
+    #puts "No args"
     res = balance_req tick, ["currency", "USD"]
   end
 
@@ -50,11 +53,14 @@ loop do
   redirects.push divisible_by tick
 
   socket.puts ["HTTP/1.1 200 OK",
-               "Content-Type: text/plain",
-               "Content-Length: #{res.bytesize}",
+               "Content-Type: application/json",
+               "Content-Length: #{res.length}",
                "Connection: close"].join("\r\n")
 
+  socket.print "\r\n"
   socket.puts res
+  socket.puts "dong"
+  puts "response is #{res}" 
 
   puts "Current number is #{divisible_by tick}."
   most_redirected redirects
