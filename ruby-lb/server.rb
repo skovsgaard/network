@@ -1,7 +1,7 @@
 require "net/http"
 require "socket"
 
-server = TCPServer.new('localhost', 7000)
+server = TCPServer.new('skovsgaard.me', 7000)
 tick = 1
 redirects = []
 
