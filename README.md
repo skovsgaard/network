@@ -1,6 +1,15 @@
 Network
 ===
 
+Structure
+---
+
+All external requests hit the Ruby load balancer running on port 7000.
+
+The load is distributed between 3 node servers, each corresponding to a node endpoint, which reads the JSON data and responds with the requested data.
+
+The request data is a plain GET-request as no sensitive or non-public information is exchanged, and the response body is a JSON-string representing the currency data requested, e.g. `{"DKK": {"monthly": 1234.56}}".
+
 Usage
 ---
 
