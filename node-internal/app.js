@@ -3,11 +3,11 @@ var JSONStream = require('jsonstream2');
 var fs = require('fs');
 var url = require('url');
 
-var dataUrl = 'http://api.bitcoincharts.com/v1/weighted_prices.json';
-var updateInterval = 8.64 * 10000000 // 24h in ms
+//var dataUrl = 'http://api.bitcoincharts.com/v1/weighted_prices_pretty.json';
+//var updateInterval = 8.64 * 10000000 // 24h in ms
 
-setInterval(sourceData, updateInterval);
-console.log('Starting 24h countdown to next data-update.');
+//setInterval(sourceData, updateInterval);
+//console.log('Starting 24h countdown to next data-update.');
 
 http.createServer(serverLogic)
   .listen(5000)
@@ -24,14 +24,14 @@ function serverLogic(req, res) {
 
   res.writeHead(200, {'Content-Type': 'application/json'});
 
-  fs.exists('weighted_prices.json', function(exists) {
+  fs.exists('weighted_prices_pretty.json', function(exists) {
     if (exists) {
-      fs.readFile('weighted_prices.json', function(err, data) {
+      fs.readFile('weighted_prices_pretty.json', function(err, data) {
 	if (err) {
 	  console.log(err);
 	} else {
 	  var resObj = {};
-	  resObj[params[1]] = JSON.parse(data)[params[1]];
+	  resObj = JSON.parse(data)[params[1]];
 	  console.log(JSON.stringify(resObj));
 	  res.end(JSON.stringify(resObj));
 	}
@@ -42,9 +42,10 @@ function serverLogic(req, res) {
   });
 }
 
-function sourceData() {
-  http.get(dataUrl, function(apiResponse) {
-    apiResponse.pipe(fs.createWriteStream('weighted_prices.json'));
-  });
-}
+//function sourceData() {
+//  http.get(dataUrl, function(apiResponse) {
+//    apiResponse
+//    .pipe(fs.createWriteStream('weighted_prices_pretty.json'))
+//  });
+//}
 
