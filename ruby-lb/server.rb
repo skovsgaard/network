@@ -39,12 +39,10 @@ loop do
     val = params.split("=")[1]
 
     puts req
-    #puts "#{key}: #{val}"
 
     res = balance_req tick, [key, val]
   else
     puts req
-    #puts "No args"
     res = balance_req tick, ["currency", "USD"]
   end
 
