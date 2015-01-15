@@ -3,7 +3,7 @@ cd /home/jsc/network/node-broker \
 && npm install \
 && cd ../node-internal \
 && npm install \
-&& cd /home/jsc/network
+&& cd ..
 
 node node-internal/app.js >> node-internal.log &
 node node-broker/app.js >> node-broker.log &
