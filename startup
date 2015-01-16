@@ -1,7 +1,7 @@
 #!/bin/bash
-cd node-broker \
+cd /home/jsc/network/node-broker \
 && npm install \
-%% cd ../node-internal \
+&& cd ../node-internal \
 && npm install \
 && cd ..
 
