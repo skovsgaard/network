@@ -1,6 +1,8 @@
 Network
 ===
 
+The network application is running at skovsgaard.me, port 7000, for a demo of the output.
+
 Structure
 ---
 
