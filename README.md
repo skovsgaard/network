@@ -22,3 +22,6 @@ Usage
 This will start all nodes in the system, making it outwards accessible on port 7000.
 
 *Note*: This will work on Linux, Mac, and other Unices only.
+
+
+The project is also available at https://github.com/skovsgaard/network
