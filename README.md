@@ -13,7 +13,7 @@ The request data is a plain GET-request as no sensitive or non-public informatio
 Usage
 ---
 
-`git clone https://github.com/skovsgaard/network.git`
+`git clone https://github.com/skovsgaard/network.git -b prod`
 
 `cd network`
 
