@@ -4,7 +4,7 @@ var fs = require('fs');
 var url = require('url');
 
 var dataUrl = 'http://api.bitcoincharts.com/v1/weighted_prices.json';
-var updateInterval = 8.64 * 10000000
+var updateInterval = 8.64 * 10000000;
 
 setInterval(sourceData, updateInterval);
 console.log('Starting 24h countdown to next data-update.');
@@ -32,7 +32,7 @@ function serverLogic(req, res) {
 	bufferedDoc += data;
       })
       .on('end', function() {
-	var resObj = {}
+	var resObj = {};
 	resObj[params[1]] = JSON.parse(bufferedDoc)[params[1]];
 
 	console.log(JSON.stringify(resObj));
