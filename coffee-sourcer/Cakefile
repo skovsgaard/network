@@ -1,8 +1,16 @@
 {exec} = require 'child_process'
 
-task 'build', 'Builds .coffee files from src/ to .js files in lib/' ->
+task 'build', 'Builds .coffee files from src/ to .js files in lib/', ->
   exec 'coffee -c -o lib src', (err, stdout, stderr) ->
     unless err
+      console.log "Built okay."
       console.log "#{stdout} #{stderr}"
+    else
+      console.log err
+
+task 'run', 'Run the app', ->
+  exec 'node lib/app.js', (err, stdout, stderr) ->
+    unless err
+      console.log "App running!"
     else
       console.log err
