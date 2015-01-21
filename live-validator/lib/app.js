@@ -9,15 +9,22 @@
     var currency;
     currency = url.parse(
     req.url);
+    if (currency.pathname.length <= 1) {
+      return res.end('{"error": "no route"}');
+    }
     currency = currency.pathname.slice(1, currency.length);
     return fs.readFile('buffered.json', function(err, data){
       var parsed;
       if (!err) {
         parsed = JSON.parse(
         data);
-        return res.end(
-        JSON.stringify(
-        parsed[currency].averages));
+        if (parsed[currency] !== undefined) {
+          return res.end(
+          JSON.stringify(
+          parsed[currency].averages));
+        } else {
+          return res.end('{"error": "currency not found"}');
+        }
       }
     });
   };

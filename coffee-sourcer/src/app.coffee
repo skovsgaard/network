@@ -28,23 +28,12 @@ serverLogic = (req, res) ->
     else
       res.end new Error 'The resource could not be located.'
 
-snippetLogic = (req, res) ->
-  currency = url.parse(req.url).path
-  fs.readFile 'snapshot.json', (err, data) ->
-    unless err
-      dataObj = JSON.parse data.toString()
-      res.end JSON.stringify dataObj[currency.slice 1, currency.length ]
-
 fetchData()
-#getterInterval = setInterval fetchData, 1000*60
-#console.log "Getter on first tick, interval set to #{1000*60} seconds"
 
 server = http.createServer serverLogic
 server.listen 9999
-#console.log 'Document fetcher listening on port 9999.'
+console.log 'Document fetcher listening on port 9999.'
 
-#snippetServer = http.createServer snippetLogic
-#snippetServer.listen 8888
 
 process.on 'exit', (code) ->
   console.log "The application closed with code, #{code}."

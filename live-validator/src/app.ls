@@ -5,14 +5,20 @@ fs = require \fs
 
 get-currency = (req, res) ->
   currency = req.url |> url.parse
+
+  return res.end '{"error": "no route"}' if currency.pathname.length <= 1
+
   currency = currency.pathname.slice 1 currency.length
 
   fs.read-file \buffered.json (err, data) ->
     unless err
       parsed = data |> JSON.parse
-      parsed[currency].averages
-      |> JSON.stringify
-      |> res.end
+      unless parsed[currency] is undefined
+        parsed[currency].averages
+        |> JSON.stringify
+        |> res.end
+      else
+        res.end '{"error": "currency not found"}'
 
 request \http://localhost:9999
 .pipe fs.create-write-stream \buffered.json
