@@ -1,0 +1,8 @@
+{exec} = require 'child_process'
+
+task 'build', 'Builds .coffee files from src/ to .js files in lib/' ->
+  exec 'coffee -c -o lib src', (err, stdout, stderr) ->
+    unless err
+      console.log "#{stdout} #{stderr}"
+    else
+      console.log err
