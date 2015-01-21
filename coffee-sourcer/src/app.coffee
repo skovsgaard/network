@@ -33,7 +33,7 @@ snippetLogic = (req, res) ->
   fs.readFile 'snapshot.json', (err, data) ->
     unless err
       dataObj = JSON.parse data.toString()
-      res.end JSON.stringify dataObj[currency.slice 1, currency.length ].averages
+      res.end JSON.stringify dataObj[currency.slice 1, currency.length ]
 
 fetchData()
 #getterInterval = setInterval fetchData, 1000*60
@@ -43,8 +43,8 @@ server = http.createServer serverLogic
 server.listen 9999
 #console.log 'Document fetcher listening on port 9999.'
 
-snippetServer = http.createServer snippetLogic
-snippetServer.listen 8888
+#snippetServer = http.createServer snippetLogic
+#snippetServer.listen 8888
 
 process.on 'exit', (code) ->
   console.log "The application closed with code, #{code}."
