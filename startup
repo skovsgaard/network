@@ -1,0 +1,12 @@
+#!/bin/bash
+cd /home/jsc/network/node-broker \
+&& npm install \
+&& cd ../node-internal \
+&& npm install \
+&& cd ..
+
+node node-internal/app.js >> node-internal.log &
+node node-broker/app.js >> node-broker.log &
+ruby ruby-lb/server.rb >> ruby-lb.log &
+
+exit 0
